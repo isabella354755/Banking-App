@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SecureBank App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <h1>SecureBank</h1>
+  <p class="subtitle">Online Banking System</p>
+
+  <div id="auth-section">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+    <button onclick="createAccount()">Create Account</button>
+    <button class="link-button" onclick="forgotPassword()">Forgot Password?</button>
+
+    <p id="auth-message"></p>
+  </div>
+
+  <div id="bank-section" class="hidden">
+    <h2>Welcome, <span id="display-user"></span></h2>
+
+    <div class="balance-card">
+      <p>Available Balance</p>
+      <h3>$<span id="balance">0.00</span></h3>
+    </div>
+
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <button onclick="deposit()">Deposit</button>
+    <button onclick="withdraw()">Withdraw</button>
+    <button onclick="showBalance()">Show Final Balance</button>
+    <button class="logout" onclick="logout()">Logout</button>
+
+    <p id="bank-message"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
