@@ -2,16 +2,103 @@
 <html>
 <head>
   <title>Banking App</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background: #dfe5ec;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding-top: 30px;
+    }
+
+    .phone {
+      width: 375px;
+      min-height: 700px;
+      background: white;
+      border-radius: 35px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border: 8px solid #111;
+    }
+
+    .top {
+      background: #143c7d;
+      color: white;
+      height: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .page {
+      padding: 28px;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #777;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 14px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .main-btn {
+      background: #0b8f69;
+      color: white;
+    }
+
+    .text-btn {
+      background: white;
+      color: #143c7d;
+      text-decoration: underline;
+    }
+
+    .logout-btn {
+      background: #8b0000;
+      color: white;
+    }
+
+    .balance-card {
+      background: #f0f4f8;
+      border-left: 5px solid #143c7d;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #loginMessage, #bankMessage {
+      font-weight: bold;
+      color: #143c7d;
+      margin-top: 18px;
+    }
+  </style>
 </head>
 <body>
 
 <div class="phone">
-  <div class="top">
-    <div class="lock">🔒</div>
-    <div class="logo">SecureBank</div>
-    <a href="#">Cookie<br>Policy</a>
-  </div>
+  <div class="top">SecureBank</div>
 
   <div id="loginPage" class="page">
     <h2>Online Banking Login</h2>
@@ -20,15 +107,7 @@
     <input type="text" id="username">
 
     <label>Password</label>
-    <div class="password-box">
-      <input type="password" id="password">
-      <button onclick="showPassword()">Show</button>
-    </div>
-
-    <div class="remember">
-      <input type="checkbox">
-      <span>Remember my User ID</span>
-    </div>
+    <input type="password" id="password">
 
     <button class="main-btn" onclick="login()">Continue</button>
     <button class="text-btn" onclick="createAccount()">Create Account</button>
@@ -57,6 +136,105 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+  let users = {};
+  let currentUser = "";
+
+  function createAccount() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username === "" || password === "") {
+      document.getElementById("loginMessage").textContent = "Enter a username and password.";
+      return;
+    }
+
+    users[username] = {
+      password: password,
+      balance: 0
+    };
+
+    document.getElementById("loginMessage").textContent = "Account created. Now press Continue.";
+  }
+
+  function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (!users[username]) {
+      document.getElementById("loginMessage").textContent = "Account not found. Create an account first.";
+      return;
+    }
+
+    if (users[username].password !== password) {
+      document.getElementById("loginMessage").textContent = "Wrong password.";
+      return;
+    }
+
+    currentUser = username;
+    document.getElementById("displayName").textContent = username;
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("bankPage").classList.remove("hidden");
+    updateBalance();
+  }
+
+  function forgotPassword() {
+    let username = document.getElementById("username").value;
+
+    if (!users[username]) {
+      document.getElementById("loginMessage").textContent = "Type a username that already has an account.";
+      return;
+    }
+
+    document.getElementById("loginMessage").textContent = "Your password is: " + users[username].password;
+  }
+
+  function deposit() {
+    let amount = Number(document.getElementById("amount").value);
+
+    if (amount <= 0) {
+      document.getElementById("bankMessage").textContent = "Enter a valid amount.";
+      return;
+    }
+
+    users[currentUser].balance += amount;
+    updateBalance();
+    document.getElementById("bankMessage").textContent = "Deposit successful.";
+  }
+
+  function withdraw() {
+    let amount = Number(document.getElementById("amount").value);
+
+    if (amount <= 0) {
+      document.getElementById("bankMessage").textContent = "Enter a valid amount.";
+      return;
+    }
+
+    if (amount > users[currentUser].balance) {
+      document.getElementById("bankMessage").textContent = "Insufficient funds.";
+      return;
+    }
+
+    users[currentUser].balance -= amount;
+    updateBalance();
+    document.getElementById("bankMessage").textContent = "Withdrawal successful.";
+  }
+
+  function showBalance() {
+    document.getElementById("bankMessage").textContent = "Your final balance is $" + users[currentUser].balance.toFixed(2);
+  }
+
+  function updateBalance() {
+    document.getElementById("balance").textContent = users[currentUser].balance.toFixed(2);
+    document.getElementById("amount").value = "";
+  }
+
+  function logout() {
+    currentUser = "";
+    document.getElementById("bankPage").classList.add("hidden");
+    document.getElementById("loginPage").classList.remove("hidden");
+  }
+</script>
+
 </body>
 </html>
