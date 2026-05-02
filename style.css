@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #e9eef5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  background: white;
+  width: 390px;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+h1 {
+  color: #0b2545;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #6c757d;
+  margin-bottom: 25px;
+}
+
+h2 {
+  color: #13315c;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #b8c0cc;
+  border-radius: 8px;
+}
+
+button {
+  width: 92%;
+  padding: 12px;
+  margin: 8px 0;
+  background: #0b2545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #13315c;
+}
+
+.link-button {
+  background: transparent;
+  color: #0b2545;
+  text-decoration: underline;
+}
+
+.link-button:hover {
+  background: transparent;
+}
+
+.logout {
+  background: #8b0000;
+}
+
+.logout:hover {
+  background: #a30000;
+}
+
+.balance-card {
+  background: #f4f7fb;
+  border: 1px solid #d0d7e2;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.balance-card p {
+  color: #6c757d;
+  margin: 0;
+}
+
+.balance-card h3 {
+  font-size: 32px;
+  color: #0b2545;
+  margin: 10px 0 0;
+}
+
+.hidden {
+  display: none;
+}
+
+#auth-message,
+#bank-message {
+  font-weight: bold;
+  color: #0b2545;
+}
